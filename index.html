@@ -158,42 +158,53 @@
     <source src="boing.mp3" type="audio/mpeg">
   </audio>
 
-  <script>
-    const questionText = document.getElementById('questionText');
-    const yesBtn = document.getElementById('yesBtn');
-    const noBtn = document.getElementById('noBtn');
-    const questionContainer = document.getElementById('questionContainer');
-    const resultContainer = document.getElementById('resultContainer');
-    const boingSound = document.getElementById('boingSound');
+  
+<script>
+  const questionText = document.getElementById('questionText');
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const questionContainer = document.getElementById('questionContainer');
+  const resultContainer = document.getElementById('resultContainer');
+  const boingSound = document.getElementById('boingSound');
+  const bgMusic = document.getElementById('bgMusic');
 
-    // Show question after loading
-    setTimeout(() => {
-      document.querySelector('.loading-screen').style.display = 'none';
-      questionContainer.style.display = 'flex';
-    }, 7000);
+  // Wait for user click to start bg music
+  document.body.addEventListener('click', () => {
+    if (bgMusic.paused) {
+      bgMusic.play().catch(e => console.log('Autoplay blocked:', e));
+    }
+  });
 
-    let questionRepeat = true;
-    let moved = false;
+  // Show question after loading
+  setTimeout(() => {
+    document.querySelector('.loading-screen').style.display = 'none';
+    questionContainer.style.display = 'flex';
+  }, 7000);
 
-    noBtn.addEventListener('click', () => {
-      boingSound.play();
-      if (questionRepeat) {
-        questionText.textContent = 'Are you sure? 😭';
-        questionRepeat = false;
-      } else {
-        noBtn.style.position = 'absolute';
-        noBtn.style.left = `${Math.random() * 80 + 10}%`;
-        noBtn.style.top = `${Math.random() * 80 + 10}%`;
-        moved = true;
-      }
-    });
+  let questionRepeat = true;
+  let moved = false;
 
-    yesBtn.addEventListener('click', () => {
-      questionContainer.style.display = 'none';
-      resultContainer.style.display = 'flex';
-      boingSound.pause();
-      boingSound.currentTime = 0;
-    });
+  noBtn.addEventListener('click', () => {
+    boingSound.play();
+    if (questionRepeat) {
+      questionText.textContent = 'Are you sure? 😭';
+      questionRepeat = false;
+    } else {
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${Math.random() * 80 + 10}%`;
+      noBtn.style.top = `${Math.random() * 80 + 10}%`;
+      moved = true;
+    }
+  });
+
+  yesBtn.addEventListener('click', () => {
+    questionContainer.style.display = 'none';
+    resultContainer.style.display = 'flex';
+    boingSound.pause();
+    boingSound.currentTime = 0;
+  });
+</script>
+
   </script>
 </body>
 </html>
